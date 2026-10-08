@@ -59,7 +59,15 @@
     <button id="sweet-btn" class="btn btn-pink">再來一句 💕</button>
   </section>
 
-  <!-- ⑥ 最終問題：原諒我嗎？ -->
+  <!-- ⑥ 心情氣泡小遊戲 -->
+  <section class="section">
+    <h2>🎈 戳破壞心情</h2>
+    <p class="note" id="bubble-hint">把寶寶的壞心情一顆一顆戳破吧！</p>
+    <div id="bubble-area" class="bubble-area"></div>
+    <p id="bubble-done" class="bubble-done hidden">寶寶的壞心情都被我收走了 💗<br>往下滑，還有一個問題 ↓</p>
+  </section>
+
+  <!-- ⑦ 最終問題：原諒我嗎？ -->
   <section class="section final" id="final">
     <div class="hero-emoji">🙏</div>
     <h2><span class="nickname"></span>，原諒我好不好？</h2>
@@ -85,6 +93,10 @@
     <img id="lightbox-img" alt="">
     <p id="lightbox-caption"></p>
   </div>
+
+  <!-- 背景音樂：右上角的開關按鈕 -->
+  <button id="music-btn" class="music-btn hidden" aria-label="播放音樂">🎵</button>
+  <audio id="bgm" loop preload="none"></audio>
 
   <script src="script.js"></script>
 </body>

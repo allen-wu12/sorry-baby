@@ -191,4 +191,75 @@ h2 { font-size: clamp(1.5rem, 6vw, 2.2rem); color: var(--pink-dark); margin-bott
 .coupon-title { font-size: 1.4rem; font-weight: 700; color: var(--pink-dark); }
 .coupon-note { font-size: 0.85rem; opacity: 0.6; margin-top: 8px; }
 
+/* ===== 心情氣泡小遊戲 ===== */
+.bubble-area {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  height: 360px;
+  margin-top: 16px;
+}
+.bubble {
+  position: absolute;
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  border: none;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #6b6b7b;
+  background: radial-gradient(circle at 30% 30%, #ffffff, #c9d6ea 70%);
+  box-shadow: 0 6px 18px rgba(120, 140, 180, 0.35);
+  cursor: pointer;
+  animation: float 3s ease-in-out infinite;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+/* 戳破的瞬間 */
+.bubble.popped { animation: popOut 0.35s ease forwards; pointer-events: none; }
+@keyframes popOut {
+  to { transform: scale(1.5); opacity: 0; }
+}
+/* 戳破後往上飄的愛心 */
+.float-heart {
+  position: absolute;
+  font-size: 2rem;
+  pointer-events: none;
+  animation: rise 1.4s ease-out forwards;
+}
+@keyframes rise {
+  to { transform: translateY(-120px) scale(1.4); opacity: 0; }
+}
+/* 戳破後跳出的安慰話 */
+.comfort {
+  position: absolute;
+  white-space: nowrap;
+  font-size: 0.9rem;
+  color: var(--pink-dark);
+  pointer-events: none;
+  animation: rise 1.8s ease-out forwards;
+}
+.bubble-done { font-size: 1.2rem; color: var(--pink-dark); margin-top: 8px; animation: pop 0.6s ease; }
+
+/* ===== 背景音樂按鈕 ===== */
+.music-btn {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 20;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: var(--white);
+  font-size: 1.4rem;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(255, 126, 182, 0.35);
+}
+.music-btn.playing { animation: spin 3s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
 .hidden { display: none !important; }

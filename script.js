@@ -51,6 +51,15 @@ const CONFIG = {
 
   // 原諒之後送出的兌換券內容
   coupon: "可兌換：一次全身按摩 💆 ＋ 一次專屬吹髮服務 💇",
+
+  // 氣泡小遊戲：寶寶的壞心情（每一個會變成一顆氣泡）
+  badMoods: ["生氣", "委屈", "難過", "不想理你", "哼！", "失望"],
+
+  // 戳破氣泡時，隨機跳出的安慰話
+  comforts: ["抱抱 🤗", "不氣不氣", "摸摸頭～", "都是我的錯", "親一個 😘", "我在這裡"],
+
+  // 背景音樂：把 mp3 放進 music/ 資料夾，檔名跟這裡一樣
+  music: "music/bgm.mp3",
 };
 
 /* =========================================================
@@ -182,4 +191,86 @@ yesBtn.addEventListener("click", () => {
   document.getElementById("reward").classList.remove("hidden");
   // 愛心大爆發
   for (let i = 0; i < 60; i++) setTimeout(dropHeart, i * 40);
+});
+
+// ---------- 心情氣泡小遊戲 ----------
+const bubbleArea = document.getElementById("bubble-area");
+let bubblesLeft = CONFIG.badMoods.length;
+
+// 把氣泡排成格子，再加一點隨機偏移，看起來比較自然
+CONFIG.badMoods.forEach((mood, i) => {
+  const bubble = document.createElement("button");
+  bubble.className = "bubble";
+  bubble.textContent = mood;
+  const cols = 3;
+  const col = i % cols;
+  const row = Math.floor(i / cols);
+  bubble.style.left = `calc(${(col / cols) * 100}% + ${4 + Math.random() * 12}px)`;
+  bubble.style.top = 30 + row * 160 + Math.random() * 40 + "px";
+  bubble.style.animationDelay = Math.random() * 2 + "s"; // 每顆飄的節奏不同
+
+  bubble.addEventListener("click", () => {
+    bubble.classList.add("popped");
+    const x = bubble.offsetLeft + 46;
+    const y = bubble.offsetTop + 30;
+
+    // 冒出一顆愛心
+    const heart = document.createElement("span");
+    heart.className = "float-heart";
+    heart.textContent = "💗";
+    heart.style.left = x - 16 + "px";
+    heart.style.top = y + "px";
+    bubbleArea.appendChild(heart);
+
+    // 跳出一句安慰話
+    const comfort = document.createElement("span");
+    comfort.className = "comfort";
+    comfort.textContent = CONFIG.comforts[Math.floor(Math.random() * CONFIG.comforts.length)];
+    comfort.style.left = x - 30 + "px";
+    comfort.style.top = y + 50 + "px";
+    bubbleArea.appendChild(comfort);
+
+    setTimeout(() => { bubble.remove(); heart.remove(); comfort.remove(); }, 1800);
+
+    // 全部戳完
+    bubblesLeft--;
+    if (bubblesLeft === 0) {
+      setTimeout(() => {
+        bubbleArea.classList.add("hidden");
+        document.getElementById("bubble-hint").classList.add("hidden");
+        document.getElementById("bubble-done").classList.remove("hidden");
+        for (let i = 0; i < 30; i++) setTimeout(dropHeart, i * 50);
+      }, 900);
+    }
+  });
+  bubbleArea.appendChild(bubble);
+});
+
+// ---------- 背景音樂 ----------
+const bgm = document.getElementById("bgm");
+const musicBtn = document.getElementById("music-btn");
+
+// 先確認音樂檔存在，有的話才顯示按鈕
+fetch(CONFIG.music, { method: "HEAD" })
+  .then((res) => {
+    if (!res.ok) return;
+    bgm.src = CONFIG.music;
+    musicBtn.classList.remove("hidden");
+  })
+  .catch(() => {});
+
+function toggleMusic() {
+  if (bgm.paused) {
+    bgm.play().then(() => musicBtn.classList.add("playing")).catch(() => {});
+  } else {
+    bgm.pause();
+    musicBtn.classList.remove("playing");
+  }
+}
+musicBtn.addEventListener("click", toggleMusic);
+
+// 寶寶第一次點畫面任何地方，就自動開始放音樂（手機規定一定要先點一下）
+document.addEventListener("click", function startOnce(e) {
+  document.removeEventListener("click", startOnce);
+  if (e.target !== musicBtn && bgm.src && bgm.paused) toggleMusic();
 });
