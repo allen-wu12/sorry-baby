@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>寶寶，對不起 🥺</title>
+  <!-- 可愛圓體字型（Google Fonts） -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- 背景飄落的愛心會被 JS 加在這裡 -->
+  <div id="hearts-bg" aria-hidden="true"></div>
+
+  <!-- ① 開場 -->
+  <section class="hero">
+    <div class="hero-emoji">🥺</div>
+    <h1><span class="nickname"></span>，對不起</h1>
+    <p class="subtitle">我知道我錯了⋯⋯可以給我一點點時間，聽我說嗎？</p>
+    <div class="scroll-hint">往下滑 ↓</div>
+  </section>
+
+  <!-- ② 道歉信 -->
+  <section class="section">
+    <h2>💌 給<span class="nickname"></span>的一封信</h2>
+    <div class="card letter">
+      <div id="letter-body"></div>
+      <p class="signature">—— <span id="signature"></span></p>
+    </div>
+  </section>
+
+  <!-- ③ 在一起天數計時器 -->
+  <section class="section">
+    <h2>⏰ 我們已經在一起</h2>
+    <div class="counter">
+      <div class="counter-box"><span id="days">0</span><small>天</small></div>
+      <div class="counter-box"><span id="hours">0</span><small>時</small></div>
+      <div class="counter-box"><span id="minutes">0</span><small>分</small></div>
+      <div class="counter-box"><span id="seconds">0</span><small>秒</small></div>
+    </div>
+    <p class="note">每一秒都捨不得讓你不開心</p>
+  </section>
+
+  <!-- ④ 照片回憶相簿 -->
+  <section class="section">
+    <h2>📷 我們的回憶</h2>
+    <p class="note">點照片可以放大看</p>
+    <div id="gallery" class="gallery"></div>
+  </section>
+
+  <!-- ⑤ 隨機甜言蜜語 -->
+  <section class="section">
+    <h2>🍬 心情補給站</h2>
+    <div class="card sweet-card">
+      <p id="sweet-text">按下面的按鈕，領一句專屬於你的話 👇</p>
+    </div>
+    <button id="sweet-btn" class="btn btn-pink">再來一句 💕</button>
+  </section>
+
+  <!-- ⑥ 最終問題：原諒我嗎？ -->
+  <section class="section final" id="final">
+    <div class="hero-emoji">🙏</div>
+    <h2><span class="nickname"></span>，原諒我好不好？</h2>
+    <div class="choice-area" id="choice-area">
+      <button id="yes-btn" class="btn btn-pink">好啦，原諒你 💗</button>
+      <button id="no-btn" class="btn btn-gray">不要</button>
+    </div>
+
+    <!-- 按下原諒後才會出現 -->
+    <div id="reward" class="reward hidden">
+      <div class="hero-emoji">🥰</div>
+      <h2>耶！謝謝<span class="nickname"></span>！</h2>
+      <div class="coupon">
+        <p class="coupon-title">🎟️ 和好兌換券</p>
+        <p id="coupon-text"></p>
+        <p class="coupon-note">有效期限：永遠 ♾️</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 照片放大檢視（燈箱） -->
+  <div id="lightbox" class="lightbox hidden">
+    <img id="lightbox-img" alt="">
+    <p id="lightbox-caption"></p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

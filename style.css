@@ -1,0 +1,194 @@
+/* ===== 顏色設定：想換色調改這裡就好 ===== */
+:root {
+  --pink: #ff7eb6;
+  --pink-dark: #e85a9a;
+  --pink-light: #ffe4f0;
+  --bg: #fff5f9;
+  --text: #5a3d4a;
+  --white: #ffffff;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "Zen Maru Gothic", "PingFang TC", "Microsoft JhengHei", sans-serif;
+  background: linear-gradient(180deg, var(--bg) 0%, var(--pink-light) 100%);
+  color: var(--text);
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+
+/* ===== 背景飄落的愛心 ===== */
+#hearts-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.falling-heart {
+  position: absolute;
+  top: -40px;
+  animation: fall linear forwards;
+  opacity: 0.7;
+}
+@keyframes fall {
+  to { transform: translateY(110vh) rotate(360deg); }
+}
+
+/* ===== 區塊共用 ===== */
+section {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 16px;
+  text-align: center;
+}
+h1 { font-size: clamp(2rem, 8vw, 3.5rem); color: var(--pink-dark); }
+h2 { font-size: clamp(1.5rem, 6vw, 2.2rem); color: var(--pink-dark); margin-bottom: 20px; }
+.note { opacity: 0.7; margin-top: 12px; }
+
+.card {
+  background: var(--white);
+  border-radius: 24px;
+  padding: 28px;
+  max-width: 560px;
+  width: 100%;
+  box-shadow: 0 10px 30px rgba(255, 126, 182, 0.25);
+}
+
+/* 捲動到才淡入的效果 */
+.section { opacity: 0; transform: translateY(40px); transition: all 0.8s ease; }
+.section.show { opacity: 1; transform: none; }
+
+/* ===== 開場 ===== */
+.hero-emoji { font-size: 5rem; animation: bounce 1.6s infinite; }
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+.subtitle { margin-top: 12px; font-size: 1.1rem; }
+.scroll-hint { margin-top: 48px; color: var(--pink); animation: bounce 1.6s infinite; }
+
+/* ===== 道歉信 ===== */
+.letter { text-align: left; }
+.letter p { margin-bottom: 12px; }
+.signature { text-align: right; margin-top: 20px; color: var(--pink-dark); }
+
+/* ===== 計時器 ===== */
+.counter { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+.counter-box {
+  background: var(--white);
+  border-radius: 20px;
+  width: 80px;
+  padding: 16px 0;
+  box-shadow: 0 6px 18px rgba(255, 126, 182, 0.25);
+}
+.counter-box span { display: block; font-size: 1.8rem; font-weight: 700; color: var(--pink-dark); }
+
+/* ===== 相簿 ===== */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 16px;
+  max-width: 800px;
+  width: 100%;
+  margin-top: 16px;
+}
+.photo {
+  background: var(--white);
+  padding: 10px 10px 14px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+.photo:nth-child(odd) { transform: rotate(-2deg); }
+.photo:nth-child(even) { transform: rotate(2deg); }
+.photo:hover { transform: scale(1.05) rotate(0); }
+.photo img, .photo .placeholder {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-position: center 30%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+/* 照片還沒放時顯示的粉色方塊 */
+.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--pink-light);
+  font-size: 2.5rem;
+}
+.photo p { font-size: 0.9rem; margin-top: 8px; }
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  background: rgba(90, 61, 74, 0.85);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  cursor: pointer;
+}
+.lightbox img { max-width: 100%; max-height: 80vh; border-radius: 12px; }
+.lightbox p { color: var(--white); margin-top: 12px; font-size: 1.1rem; }
+
+/* ===== 甜言蜜語 ===== */
+.sweet-card { min-height: 120px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+.pop { animation: pop 0.4s ease; }
+@keyframes pop {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* ===== 按鈕 ===== */
+.btn {
+  font-family: inherit;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 999px;
+  padding: 14px 28px;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+}
+.btn:active { transform: scale(0.95); }
+.btn-pink { background: var(--pink); color: var(--white); box-shadow: 0 6px 16px rgba(255, 126, 182, 0.4); }
+.btn-pink:hover { background: var(--pink-dark); }
+.btn-gray { background: #ddd; color: #777; }
+
+/* ===== 最終問題 ===== */
+.choice-area {
+  position: relative;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+#yes-btn { transition: transform 0.3s; }
+/* 「不要」按鈕開始逃跑後，在最後一區裡隨機亂跑 */
+#no-btn.running { position: absolute; z-index: 5; margin: 0; transition: left 0.25s, top 0.25s; }
+
+.reward { animation: pop 0.6s ease; }
+.coupon {
+  margin-top: 16px;
+  background: var(--white);
+  border: 3px dashed var(--pink);
+  border-radius: 20px;
+  padding: 24px;
+  max-width: 420px;
+}
+.coupon-title { font-size: 1.4rem; font-weight: 700; color: var(--pink-dark); }
+.coupon-note { font-size: 0.85rem; opacity: 0.6; margin-top: 8px; }
+
+.hidden { display: none !important; }
